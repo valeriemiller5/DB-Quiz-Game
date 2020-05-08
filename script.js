@@ -319,7 +319,7 @@ $(document).ready(function () {
     $("#submitName").on("click", function () {
         name = $("#inputName").val().trim()
         localStorage.setItem(name, newScore);
-        window.location = "high-scores.html";
+        location.reload();
     });
 
 });
