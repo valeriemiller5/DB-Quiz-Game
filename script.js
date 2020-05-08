@@ -132,6 +132,8 @@ $(document).ready(function () {
     let time = 30;
     let timerStarted = false;
     let timeSet;
+    let name;
+    let newScore = localStorage.getItem("score");
 
     //Fisher-Yates Shuffle algorithm
     const shuffle = a => {
@@ -154,7 +156,7 @@ $(document).ready(function () {
         // To stop the error from breaking the code, handle it with a try/catch statement
         try {
             id = shuffledQuestions.id;
-            console.log(`id on line 151: ${id}`);
+            // console.log(`id on line 151: ${id}`);
         } catch (error) {
             id = null;
             // stop the timer
@@ -166,10 +168,13 @@ $(document).ready(function () {
                 text: "You answered all the questions! Click 'Continue' to see your score.",
                 type: "success",
                 confirmButtonText: "Continue",
+                confirmButtonColor: "#4527a0",
                 allowOutsideClick: false,
 
             }).then(function () {
+                storeScore();
                 window.location = "high-scores.html";
+                
             });
         }
         // Once all of the questions are answered, question will be undefined.
@@ -184,10 +189,10 @@ $(document).ready(function () {
         }
 
         for (var i = 0; i < questions.length; i++) {
-            console.log(`questions.length: ${questions.length}`);
+            // console.log(`questions.length: ${questions.length}`);
             if (id === questions[i].id) {
-                console.log(`id in if statement: ${id}`)
-                console.log(`answers[i].id in if statement ${questions[i].id}`);
+                // console.log(`id in if statement: ${id}`)
+                // console.log(`answers[i].id in if statement ${questions[i].id}`);
                 let choices = questions[i].choices;
                 // console.log(choices);
                 shuffle(choices);
@@ -211,7 +216,7 @@ $(document).ready(function () {
     // so that the same question isn't asked twice
     const removeQuestion = () => {
         var removeItem = id;
-        console.log(`id of removed object: ${removeItem}`)
+        // console.log(`id of removed object: ${removeItem}`)
         questions = $.grep(questions, function (value) {
             return value.id != removeItem;
         });
@@ -244,16 +249,26 @@ $(document).ready(function () {
                         text: "Click 'Continue' to see your score.",
                         type: "warning",
                         confirmButtonText: "Continue",
+                        confirmButtonColor: "#4527a0",
                         allowOutsideClick: false,
 
                     }).then(function () {
+                        storeScore();
                         window.location = "high-scores.html";
+                        $("#inputName").show();
+                        $("#nameLabel").show();
+                        $("#submitName").show();
                     });
                 }
             }, 1000);
             timerStarted = true;
         };
     };
+
+    const storeScore = () => {
+        let myScore = score.toString();
+        localStorage.setItem("score", myScore);
+    }
 
     // Handles the click event for the dynamically created answer choice buttons
     // compares the value of the selected question with the correct answer to the question
@@ -272,12 +287,11 @@ $(document).ready(function () {
             score++;
             h.html("<hr>Correct!");
             $("#answerImage").append(h).append(showAnswer());
-            console.log(`Current Score: ${score}`);
         } else {
             h.html("<hr>Wrong!");
             $("#answerImage").append(h).append(showAnswer());
-            console.log(`Current Score: ${score}`);
         };
+        // console.log(`Current Score: ${score}`);
         removeQuestion();
         shuffleQuestions();
     });
@@ -290,8 +304,23 @@ $(document).ready(function () {
         shuffleQuestions();
     });
 
-// EVERYTHING AFTER THIS POINT HANDLES THE LOGIC FOR HIGH-SCORES.HTML
+    // EVERYTHING AFTER THIS POINT HANDLES THE LOGIC FOR HIGH-SCORES.HTML
+    for (var i = 0; i < localStorage.length; i++) {
+        let names = localStorage.key(i)
+        console.log(names)
+        console.log(localStorage.getItem(names));
+        if (names !== "score") {
+            let p = $("<p>");
+            p.text(`${names}: ${localStorage.getItem(names)}`);
+            $("#myScores").append(p);
+        }
+    };
 
+    $("#submitName").on("click", function () {
+        name = $("#inputName").val().trim()
+        localStorage.setItem(name, newScore);
+        window.location = "high-scores".html;
+    });
 
 });
 

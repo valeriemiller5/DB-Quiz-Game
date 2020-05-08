@@ -10,3 +10,13 @@
 .time {
     font-size: 25px;
 }
+
+.scores {
+    margin-top: 150px;
+    width: 500px;
+}
+
+.back {
+    margin-left: 450px;
+    margin-top: 150px;
+}
