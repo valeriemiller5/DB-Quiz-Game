@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
+    <script src="./script.js"></script>
+    <title>Quiz Time!</title>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper deep-purple">
+            <a href="high-scores.html" id="scores">High Scores</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="time">Time Remaining: <span class="time" id="timer">30</span></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h4 id="heading" style="text-align: center">Please Click the Button Below to Start the Quiz!</h4>
+        <button style="margin-left: 45%" class="btn waves-effect waves-light deep-purple start" type="submit"
+            name="action">Start
+            <i class="material-icons right">send</i>
+        </button>
+        <div style="margin-left: 200px">
+            <div id="quiz"></div>
+            <div id="answerImage"></div>
+        </div>
+    </div>
+</body>
+
+</html>
