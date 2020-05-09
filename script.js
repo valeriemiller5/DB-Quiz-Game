@@ -129,6 +129,7 @@ $(document).ready(function () {
     let question;
     let id = 100;
     let score = 0;
+    let scores = [];
     let time = 30;
     let timerStarted = false;
     let timeSet;
@@ -164,18 +165,24 @@ $(document).ready(function () {
             clearInterval(timeSet);
             // Using Sweetalert2, because it looks nicer than the default alert
             Swal.fire({
-                title: "Check Results",
+                title: 'Check Results',
                 text: "You answered all the questions! Click 'Continue' to see your score.",
                 type: "success",
-                confirmButtonText: "Continue",
-                confirmButtonColor: "#4527a0",
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
                 allowOutsideClick: false,
-
-            }).then(function () {
-                storeScore();
-                window.location = "high-scores.html";
-                
-            });
+                confirmButtonText: 'Continue',
+                confirmButtonColor: "#4527a0",
+                showLoaderOnConfirm: true,
+                preConfirm: (name) => {
+                    storeScore();
+                    let newScore = localStorage.getItem("score");
+                    localStorage.setItem(name, newScore);
+                    window.location = "high-scores.html";
+                },
+            })
         }
         // Once all of the questions are answered, question will be undefined.
         // To stop the error from breaking the code, handle it with a try/catch statement
@@ -248,16 +255,20 @@ $(document).ready(function () {
                         title: "Time's Up!",
                         text: "Click 'Continue' to see your score.",
                         type: "warning",
-                        confirmButtonText: "Continue",
-                        confirmButtonColor: "#4527a0",
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
                         allowOutsideClick: false,
-
-                    }).then(function () {
-                        storeScore();
-                        window.location = "high-scores.html";
-                        $("#inputName").show();
-                        $("#nameLabel").show();
-                        $("#submitName").show();
+                        confirmButtonText: 'Continue',
+                        confirmButtonColor: "#4527a0",
+                        showLoaderOnConfirm: true,
+                        preConfirm: (name) => {
+                            storeScore();
+                            let newScore = localStorage.getItem("score");
+                            localStorage.setItem(name, newScore);
+                            window.location = "high-scores.html";
+                        },
                     });
                 }
             }, 1000);
@@ -307,11 +318,14 @@ $(document).ready(function () {
     // EVERYTHING AFTER THIS POINT HANDLES THE LOGIC FOR HIGH-SCORES.HTML
     for (var i = 0; i < localStorage.length; i++) {
         let names = localStorage.key(i)
+        let namedScore = localStorage.getItem(names)
+        let points = parseInt(namedScore);
+        scores.push(points)
         console.log(names)
-        console.log(localStorage.getItem(names));
+        console.log(namedScore);
         if (names !== "score") {
             let p = $("<p>");
-            p.text(`${names}: ${localStorage.getItem(names)}`);
+            p.text(`${names}: ${namedScore}`);
             $("#myScores").append(p);
         }
     };
@@ -319,7 +333,7 @@ $(document).ready(function () {
     $("#submitName").on("click", function () {
         name = $("#inputName").val().trim()
         localStorage.setItem(name, newScore);
-        location.reload();
+        window.location.reload();
     });
 
 });
