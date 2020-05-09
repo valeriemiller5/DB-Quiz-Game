@@ -129,12 +129,10 @@ $(document).ready(function () {
     let question;
     let id = 100;
     let score = 0;
-    let scores = [];
     let time = 30;
     let timerStarted = false;
     let timeSet;
-    let name;
-    let newScore = localStorage.getItem("score");
+
 
     //Fisher-Yates Shuffle algorithm
     const shuffle = a => {
@@ -315,26 +313,22 @@ $(document).ready(function () {
         shuffleQuestions();
     });
 
-    // EVERYTHING AFTER THIS POINT HANDLES THE LOGIC FOR HIGH-SCORES.HTML
-    for (var i = 0; i < localStorage.length; i++) {
-        let names = localStorage.key(i)
-        let namedScore = localStorage.getItem(names)
-        let points = parseInt(namedScore);
-        scores.push(points)
-        console.log(names)
-        console.log(namedScore);
+    
+
+    //Sort the items in localStorage from highest to lowest score
+    const keysSorted = Object.keys(localStorage).sort(function (a, b) { return localStorage[b] - localStorage[a] })
+    // console.log(keysSorted);
+    
+    //Display scores on high-scores.html
+    for (var i = 0; i < keysSorted.length; i++) {
+        let names = keysSorted[i];
+        let namedScore = localStorage.getItem(names);
         if (names !== "score") {
             let p = $("<p>");
             p.text(`${names}: ${namedScore}`);
             $("#myScores").append(p);
         }
     };
-
-    $("#submitName").on("click", function () {
-        name = $("#inputName").val().trim()
-        localStorage.setItem(name, newScore);
-        window.location.reload();
-    });
 
 });
 
