@@ -297,10 +297,10 @@ $(document).ready(function () {
             h.html("<hr>Correct!");
             $("#answerImage").append(h).append(showAnswer());
         } else {
+            time--;
             h.html("<hr>Wrong!");
             $("#answerImage").append(h).append(showAnswer());
         };
-        // console.log(`Current Score: ${score}`);
         removeQuestion();
         shuffleQuestions();
     });
@@ -313,22 +313,52 @@ $(document).ready(function () {
         shuffleQuestions();
     });
 
-    
 
-    //Sort the items in localStorage from highest to lowest score
-    const keysSorted = Object.keys(localStorage).sort(function (a, b) { return localStorage[b] - localStorage[a] })
-    // console.log(keysSorted);
-    
-    //Display scores on high-scores.html
-    for (var i = 0; i < keysSorted.length; i++) {
-        let names = keysSorted[i];
-        let namedScore = localStorage.getItem(names);
-        if (names !== "score") {
-            let p = $("<p>");
-            p.text(`${names}: ${namedScore}`);
-            $("#myScores").append(p);
-        }
-    };
+    const populateTable = () => {
+        //Sort the items in localStorage from highest to lowest score
+        const keysSorted = Object.keys(localStorage).sort(function (a, b) { return localStorage[b] - localStorage[a] })
+        // console.log(keysSorted);
+        let tr;
+        let td1;
+        let td2;
+        let span;
+        let namesArray = [];
+        let namedScore;
+
+        //Display scores in a table on high-scores.html
+        for (var i = 0; i < keysSorted.length; i++) {
+            let names = keysSorted[i];
+            namesArray.push(names);
+            namedScore = localStorage.getItem(names);
+            if (names !== "score") {
+                tr = $("<tr>");
+                td1 = $("<td>");
+                td2 = $("<td>");
+                span = $(`<span id=${names.replace(/ +/g, '-').toLowerCase()} class=" btn waves-effect waves-light red delete" type="button" style="margin-left: 50px">X</span>`);
+                td1.text(names);
+                td2.text(namedScore)
+                tr.append(td1).append(td2);
+                tr.append(span)
+                $("#myScores").append(tr);
+            }
+        };
+
+        // Delete scores from scoreboard
+        $("#myScores").on("click", ".delete", function () {
+            // console.log(this.id);
+            // console.log(namesArray);
+            namesArray.forEach(name => {
+                if (name.replace(/ +/g, '-').toLowerCase() === this.id) {
+                    // console.log("match: " + name);
+                    localStorage.removeItem(name);
+                    window.location.reload();
+                }
+            })
+        })
+
+
+    }
+    populateTable()
 
 });
 
