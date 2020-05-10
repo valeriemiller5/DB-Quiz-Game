@@ -120,7 +120,7 @@ $(document).ready(function () {
                 "Liza, Vincente"
             ],
             answer: "Chi Chi, Ox King",
-            image: "./images/chichiandOxKing.jpg"
+            image: "./images/chichiOxKing.jpg"
         }
     ];
 
