@@ -120,7 +120,7 @@ $(document).ready(function () {
                 "Liza, Vincente"
             ],
             answer: "Chi Chi, Ox King",
-            image: "./images/chichiOxKing.jpg"
+            image: "./images/chichiandOxKing.jpg"
         }
     ];
 
@@ -232,7 +232,7 @@ $(document).ready(function () {
 
     // Display image of correct answer once player has made a selection
     const showAnswer = () => {
-        var img = $("<img style='height: 150px'>");
+        var img = $("<img style='height: 200px'>");
         img.attr("src", shuffledQuestions.image)
         var p = $("<p>")
         p.text(`The answer is: ${shuffledQuestions.answer}`);
