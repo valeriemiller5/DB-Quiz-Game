@@ -330,7 +330,7 @@ $(document).ready(function () {
             let names = keysSorted[i];
             namesArray.push(names);
             namedScore = localStorage.getItem(names);
-            if (names !== "score") {
+            if (names !== "score" && isNaN(names)) {
                 tr = $("<tr>");
                 td1 = $("<td>");
                 td2 = $("<td>");
