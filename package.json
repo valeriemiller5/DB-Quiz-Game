@@ -1,0 +1,20 @@
+{
+  "name": "DB-Quiz-Game",
+  "version": "1.0.0",
+  "description": "## About this App > Timed quiz covering questions related to Dragon Ball.  Click the *Start* button to begin the quiz, then answer the questions when prompted.  To check out the high scores, click the *High Scores* link at the top of the page.  Built with HTML, JavaScript, and Materialize CDN for CSS styling.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valeriemiller5/DB-Quiz-Game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/valeriemiller5/DB-Quiz-Game/issues"
+  },
+  "homepage": "https://github.com/valeriemiller5/DB-Quiz-Game#readme"
+}
