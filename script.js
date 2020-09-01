@@ -351,7 +351,7 @@ $(document).ready(function () {
                 if (name.replace(/ +/g, '-').toLowerCase() === this.id) {
                     // console.log("match: " + name);
                     localStorage.removeItem(name);
-                    window.location.reload();
+                    location.reload();
                 }
             })
         })
